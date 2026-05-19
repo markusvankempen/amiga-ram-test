@@ -1,0 +1,50 @@
+; RAM-TEST UI demo — Amiberry (Kickstart 1.3, DF0 boot)
+;
+; Install: ./install_demo_amiberry.sh
+; Start: Configurations → RAM-TEST_DEMO_KS13
+; Controls: RETURN/ENTER = next screen, ESC = exit
+; ROM: kick13.rom or kick34005.A500.rom (262144 bytes)
+;
+config_description=RAM-TEST UI demo - A500 OCS, screens only
+config_hardware=true
+config_host=true
+config_version=8.1.6
+amiberry.rom_path=/Users/markusvankempen/Documents/Amiberry/ROMs/
+amiberry.floppy_path=/Users/markusvankempen/Documents/Amiberry/Floppies/
+amiberry.hardfile_path=/Users/markusvankempen/Documents/Amiberry/HardDrives/
+amiberry.cd_path=/Users/markusvankempen/Documents/Amiberry/CDROMs/
+use_gui=yes
+use_debugger=false
+kickstart_rom_file=kick34005.A500.rom
+chipmem_size=1
+bogomem_size=0.5
+fastmem_size=0
+gfxcard_size=0
+cpu_type=68000
+cpu_speed=real
+cpu_multiplier=1
+cpu_cycle_exact=false
+cpu_memory_cycle_exact=false
+cpu_compatible=true
+ntsc=false
+gfx_resolution=hires
+gfx_linemode=single
+gfx_colors=4
+gfx_lores=false
+gfxcard=none
+gfx_afullscreen=false
+gfx_fullscreen_amiga=false
+gfx_fullscreen_picasso=false
+gfx_width=1280
+gfx_height=512
+gfx_center_horizontal=smart
+gfx_center_vertical=smart
+gfx_autoscale=none
+floppy0=/Users/markusvankempen/Documents/Amiberry/Floppies/RAM-TEST_demo.adf
+floppy0_type=0
+floppy_drive_speed=100
+floppy0_write_protected=false
+floppy1=
+floppy2=
+floppy3=
+mount_configs=true

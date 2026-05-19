@@ -20,7 +20,6 @@ extracted_ramtest/*
 !extracted_ramtest/RAM-TEST_V311.adf
 
 # Project internals — not for public repo
-documentation/
 gigatron.txt
 startup-sequence
 

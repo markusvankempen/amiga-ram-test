@@ -1,0 +1,45 @@
+RAM-TEST UI DEMO (Amiberry + Kickstart 1.3)
+============================================
+
+Last updated: 2026-05-18
+
+`RAM-TEST_demo.adf` runs **ram-test-demo**: real V3.11 screens only — **no memory test**,
+no Guru from CopyMemFast, no slow RAM required (512K slow in config is optional).
+
+Install
+-------
+  ./install_demo_amiberry.sh
+
+Amiberry: **Configurations → RAM-TEST_DEMO_KS13 → Start**
+
+Kickstart: **kick13.rom** or **kick34005.A500.rom** (262144 bytes) in `~/Documents/Amiberry/ROMs/`
+
+Controls
+--------
+  **RETURN / ENTER** — next screen  
+  **ESC** — exit to CLI  
+
+Screen order (loops)
+--------------------
+  1. Intro (what this demo is)  
+  2. MB menu (`Mit wieviel MB…`)  
+  3. Test running (like your hardware screenshot)  
+  4. **FERTIG !!** (all patterns, success)  
+  5. **FEHLER !!** (with X marks)  
+  6. **ABBRUCH !**  
+  7. **MELDUNG !!** (reset dialog; demo does not reset)  
+
+Display
+-------
+  HiRes 640, single scanlines, 2× integer window (1280×512) — same preset as real RAM-TEST.
+  See `documentation/RAM-TEST_DEMO_KS13.uae`.
+
+Rebuild
+-------
+  python3 internal/code/build_ramtest_demo.py
+  python3 internal/code/create_ramtest_adf.py --rebuild
+  ./install_demo_amiberry.sh
+
+Real memory test
+----------------
+Use `RAM-TEST_emulator.adf` + `RAM-TEST_KS13_DF0` instead (`./install_amiberry.sh`).

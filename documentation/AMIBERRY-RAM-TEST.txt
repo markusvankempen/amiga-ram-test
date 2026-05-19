@@ -1,0 +1,245 @@
+RAM-TEST in Amiberry — Guru Meditation help
+==========================================
+Last updated: 2026-05-18
+Amiberry version: 8.1.6
+RAM-TEST version: V3.11
+
+
+Your Guru display
+-----------------
+  Guru Meditation error
+  -000004  (or 80000004)
+  .... 0000A880 ....
+
+Meaning:
+  -000004 / 80000004  =  Illegal instruction (68000 exception #4)
+  0000A880            =  Program counter (PC) where the CPU faulted
+
+This often happens when RAM-TEST calls exec.library CopyMemFast to fill
+trapdoor RAM at $00C00000, but the CPU emulator or memory layout is wrong.
+
+Required memory (check in GUI before Start)
+-------------------------------------------
+  Model .............. Amiga 500 (OCS, not A500+)
+  Kickstart .......... 1.3 only (kick34005.A500.rom)
+  Chip RAM ........... 512 KB   (chipmem_size=0.5)
+  Slow / trapdoor .... 512 KB   (bogomem_size=0.5)  <-- needed to RUN the test
+  Fast RAM ........... 0
+  CPU ................ 68000, real speed, multiplier 1 (no turbo)
+
+In Amiberry: Memory page must show 512K chip + 512K slow. If chip is 1 MB,
+trapdoor slow RAM is wrong for this program.
+
+Slow RAM 0 vs 512 KB (why behaviour differed)
+---------------------------------------------
+  On the UNPATCHED program:
+    Slow RAM = 0   -> logo + menu (nothing to "reset off")
+    Slow RAM = 512 -> RESET message (real GIGATRON disables expansion first)
+
+  The emulator ADF is patched so you get logo + menu EVEN WITH 512K slow.
+  You still need 512K slow configured, then press menu "1" (0.5 MB) to test.
+
+Config file (updated for Guru 80000004)
+---------------------------------------
+  See: documentation/RAM-TEST_KS13_DF0.uae
+
+Changes vs older preset:
+  - cpu_multiplier=1        (was 2 — turbo can break CopyMemFast + bogomem)
+  - cpu_cycle_exact=true
+  - cpu_memory_cycle_exact=true
+  - cycle_exact=true
+  - blitter_cycle_exact=true
+  - display_optimizations=none
+  - comp_oldsegv=true
+  - log_illegal_mem=true
+  - bogomem_fast=false
+
+Floppy
+------
+  Use RAM-TEST_emulator.adf (patched ram-test).
+
+  Re-copy the ADF after updates — Amiberry may cache an old disk image.
+
+Software reset popup after menu "1"
+------------------------------------
+  Amiberry shows "Software reset" then Guru at $0000A880 when the program
+  runs the GIGATRON hardware-disable routine (CIA/custom chip pokes) after
+  you pick 0.5 MB.
+
+  Current emulator patch: after menu 1, jump straight to the memory test
+  (skip RESET dialog and NO_FAST). Re-copy RAM-TEST_emulator.adf.
+
+RESET message then blank screen
+-------------------------------
+  On older emulator patches you could see:
+    "RESET abgeschaltet" / "PROGRAMM STARTEN"
+  then a black screen after pressing Return.
+
+  Cause: the program tried to warm-reset the Amiga (real GIGATRON hardware).
+  The emulator patch removed the reset but still jumped into dead code.
+
+  Current patch (2026): skips the RESET dialog entirely and goes straight to
+  the memory-size menu (0.5 / 1.0 / 1.5 / 2.0 MB).
+
+Display (GIGATRON logo / menu — NOT a font problem)
+---------------------------------------------------
+  RAM-TEST opens: con:0/0/640/240/RAM-TEST
+
+  Recovered binary had a corrupted device name: "..raw:0/0/640/240"
+  (missing "co" before "n:"). That does NOT open a proper console window — menu
+  and logo look broken in Shell. Current RAM-TEST_emulator.adf uses a patched
+  binary that restores "con:". Re-copy the ADF after rebuilding.
+
+  The 640 is pixels (window width), not 640 character columns.
+  With the normal Amiga console font (8x8 in HiRes) that is about 80 columns.
+
+  The logo is placed at column 57 (ANSI escape codes). The MELDUNG box starts
+  at column 15 with ~52-character lines. That only fits in HiRes (~80 columns).
+
+  If you see broken layout (text fragments on the LEFT edge, logo cut off):
+    -> The emulated Amiga is in LoRes (~40 columns), not HiRes.
+    -> Long lines wrap to the next line starting at column 0 (left margin).
+    -> This is NOT a different font; boot-from-floppy often stays in LoRes.
+
+  RAM-TEST does not call SetScreen or load a custom font.
+
+  Preset RAM-TEST_KS13_DF0.uae uses:
+    gfx_resolution=hires       (640 pixels wide from reset)
+    gfx_lores=false
+    gfx_autoresolution=0     (stay in HiRes; do not drop to LoRes)
+    gfx_linemode=none        (NOT double2 — doubles rows, breaks layout)
+    gfx_auto_crop=false      (crop can clip the sides)
+    scaling_method=2         (integer scale)
+    Window 1280 x 512        (2x PAL HiRes)
+
+  **CRITICAL FIX FOR BROKEN TEXT/LOGO:**
+  
+  If text is bleeding or logo is cut off, the emulated Amiga is in LoRes (320px)
+  instead of HiRes (640px). You MUST manually set this in Amiberry GUI:
+  
+  1. In Amiberry, BEFORE clicking Start:
+     - Go to: Display tab
+     - Resolution: Select "HighRes" (NOT Auto, NOT LowRes)
+     - Line mode: Select "Single" (NOT Double, NOT Scanlines)
+     - Frameskip: 0
+  
+  2. Go to: Chipset tab
+     - Chipset: OCS
+     - Collision level: Full
+  
+  3. Click Start
+  
+  The config file settings don't always override Amiberry's defaults, so you
+  must verify these in the GUI before each boot.
+  
+  Alternative: boot Workbench 1.3, switch to Interlaced or Productivity HiRes
+  (Preferences / screen mode), then run ram-test from Shell.
+
+Workflow
+--------
+1. Copy .uae to ~/Documents/Amiberry/Configurations/
+2. Copy RAM-TEST_emulator.adf to Floppies/
+3. Load config RAM-TEST_KS13_DF0
+4. Verify memory in GUI (512K + 512K slow)
+5. Start → at menu press 1 only (0.5 MB)
+
+Kickstart ROM
+-------------
+Must be real Amiga 500 Kickstart 1.3 (v34.005), 262144 bytes.
+
+Your ~/Documents/Amiberry/ROMs/ set is verified authentic; kick13.rom and
+kick34005.A500.rom are the same file (MD5 82a21c1890cae844b3df741f2762d48d).
+All listed ROMs include exec.library CopyMem; CopyMemFast is available from
+1.3 upward. See: documentation/KICKSTART-ROMS.md for the full table.
+
+Wrong ROM for this config:
+  - 1.2 (kick12.rom) — different exec layout than RAM-TEST expects
+  - 524288-byte "doubled" 1.3 — breaks library vectors (not your kick13.rom)
+  - 2.x/3.x without retesting — JSR offsets into exec differ from 1.3
+
+Guru 4 at PC $0000A880 (flashing screen, then crash)
+----------------------------------------------------
+  Guru 4 = illegal instruction. PC $A880 is usually a corrupted return address
+  after exec.library CopyMemFast on trapdoor RAM — not normal program code.
+
+  Common causes:
+    1. Wrong Kickstart ROM file: kick34005.A500.rom must be 262144 bytes.
+       A 524288-byte "doubled" ROM has different data and breaks library vectors.
+       Run ./install_amiberry.sh — it copies a proper 262144-byte KS 1.3 ROM.
+    2. CopyMemFast on Amiberry bogomem — emulator patch branches past both
+       CopyMemFast calls to the byte-fill loop only (test still works).
+
+  Also verify: 512K chip + 512K slow, menu key 1 only, cpu_multiplier=1.
+
+Guru 3 at address $00C05128 (in slow RAM)
+-----------------------------------------
+  Guru 3 = address error. $00C05xxx is the bottom of trapdoor RAM where
+  Kickstart/DOS still has data in emulators.
+
+  Common cause (fixed in latest patch):
+    Expansion detect wrote end address $C80000 into $E90, wiping the
+    start address. The test then filled from the wrong address and hit
+    system memory below $C08000.
+
+  Fix: rebuild (./install_amiberry.sh). Patches now store end in $E9A only,
+  start stays $C08000 in $E90/$E86, BSR at $7FE targets fill at $9C4.
+
+Guru 3 at address $55555555
+-----------------------------
+  Guru code 3 (80000003) = address error. Fault address $55555555 is the RAM-TEST
+  data pattern (not a real CPU address).
+
+  Typical cause on emulators with 512K trapdoor RAM:
+    1. Program stored end address $00B80000 or $00BC0000 instead of $00C80000
+       when slow RAM is detected — test writes past real memory.
+    2. Menu key "1" took a wrong branch (adda.l #$180000) so the start pointer
+       was garbage before CopyMemFast.
+
+  Fix: rebuild RAM-TEST_emulator.adf (./build_disks.sh — patch sets end $C80000,
+  start $C08000, and fixes the menu-1 branch). Re-copy the ADF.
+
+Guru 10 at address $00C0DB8 (in slow RAM)
+-----------------------------------------
+  Guru code 10 (8000000A) = 68000 "Line 1010" fault — the CPU is executing data
+  in trapdoor RAM, not real program code.
+
+  Typical cause: a bad emulator patch sent control flow to $826, $BD2, or $DC4
+  instead of the real test entry at $7CE. $BD2 still contains GIGATRON hardware
+  access ($C00000 / $DC00000). After CopyMemFast fills slow RAM with test patterns
+  (e.g. $10101010), the CPU can land near $00C0DB8 and fault.
+
+  Fix: use a freshly built RAM-TEST_emulator.adf (./build_disks.sh must
+  branch all menu/reset paths to $7CE). Re-copy the ADF — Amiberry caches disks.
+
+Guru 4 at address $00C05128 (in slow RAM)
+-----------------------------------------
+  Exception 4 = illegal instruction. Fault address $00C05xxx is in the bottom
+  32 KB of trapdoor RAM (below $00C08000) where Kickstart still has code/data.
+
+  Cause: the fill loop at code $9DE still used movea.l ($E86),A0. After setup,
+  $E86 could hold the wrong pointer, so the test wrote from ~$C00000 and
+  corrupted system memory; the CPU then executed fill patterns as code -> Guru.
+
+  Fix (2026-05): patch_ramtest_emulator.py now patches the *running* code segment:
+    - Fill at $9DE: A0 = $C08000, at $9D8: A2 = $C80000
+    - C68 stores A0 (start) into $E86, not A2 (end)
+    - BSR at $7DE targets fill entry $9C4 correctly
+  Re-run ./install_amiberry.sh, fully quit Amiberry, then retest.
+
+  Config: 512K chip + 512K slow, menu 1, KS 1.3 kick13.rom (262144 bytes).
+  Turn OFF cycle-exact CPU if still unstable (see RAM-TEST_KS13_DF0.uae).
+
+If it still Gurus
+-----------------
+1. Note full Guru line (all hex numbers).
+2. Safer path: boot Workbench 1.3 in DF0, RAM-TEST disk in DF1:
+     avail
+     DF1:c/ram-test
+   avail must list chip + other/slow memory.
+3. Do not use menu 2–4 unless you configured matching expansion sizes.
+4. Check Amiberry.log in ~/Documents/Amiberry/ after a crash.
+
+Original hardware
+-----------------
+On real GIGATRON hardware the program may show a German RESET message first.
+The emulator ADF skips that hardware path.

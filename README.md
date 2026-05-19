@@ -6,7 +6,7 @@ This repository is both a software recovery project and a personal story.
 
 In 1988, as a teenager, I hung around and helped **GIGATRON** in Germany — a startup that ran, quite literally, out of a living room. There was no formal job title. We just showed up, got involved, and built things together. The hardware team made RAM expansion boards for the **Amiga 500** and **Amiga 1000**, and I wrote software to go with them.
 
-Decades later, I found the disks and binaries again. This repo brings that tool back to life in an emulator, preserves the historical material, and documents how it worked.
+Almost **40 years later** — while going through old files and backups — I stumbled across traces of the program. A binary here, a source fragment there. Just enough to recognise what it was and remember that it had existed. That discovery is what started this project: a thread pulled, and slowly the whole thing came back.
 
 Recovery and documentation of **RAM-TEST** (Markus van Kempen / GIGATRON): bootable ADF images, Amiberry presets, screenshots, and public documentation. Earlier assembly fragments and build tooling live under [`internal/`](internal/) (not published to GitHub).
 
