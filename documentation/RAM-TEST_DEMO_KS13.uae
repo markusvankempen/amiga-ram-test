@@ -4,6 +4,9 @@
 ; Start: Configurations → RAM-TEST_DEMO_KS13
 ; Controls: RETURN/ENTER = next screen, ESC = exit
 ; ROM: kick13.rom or kick34005.A500.rom (262144 bytes)
+; *** LEGAL: Use only a ROM you own — dumped from your own Amiga hardware
+; *** or purchased via Amiga Forever (https://www.amigaforever.com).
+; *** Do NOT download ROMs from third-party sites. Not abandonware.
 ;
 config_description=RAM-TEST UI demo - A500 OCS, screens only
 config_hardware=true

@@ -145,6 +145,16 @@ Workflow
 
 Kickstart ROM
 -------------
+⚠️  LEGAL NOTICE: Kickstart ROMs are copyrighted software owned by Cloanto
+(who acquired the rights from Commodore/Escom). You MUST use a ROM you own
+legally. Authorised sources:
+  - Dump from your own physical Amiga hardware
+  - Amiga Forever (https://www.amigaforever.com) — licensed ROM pack
+  - Any other officially licensed distribution
+
+Do NOT download ROMs from random websites. They are not free, not public domain,
+and not abandonware. Using unlicensed copies is copyright infringement.
+
 Must be real Amiga 500 Kickstart 1.3 (v34.005), 262144 bytes.
 
 Your ~/Documents/Amiberry/ROMs/ set is verified authentic; kick13.rom and
