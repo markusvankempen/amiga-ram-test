@@ -1,0 +1,31 @@
+# Not for publication
+internal/
+images/donotuse/
+
+# Shell scripts
+*.sh
+
+# Kickstart ROMs — copyrighted, never distribute
+*.rom
+*.ROM
+kick*.A500
+kick*.A1200
+kick*.A4000
+kick*.A600
+kick*.CD32
+kick*.CDTV
+
+# ADF disk images — only publish RAM-TEST_V311.adf
+extracted_ramtest/*
+!extracted_ramtest/RAM-TEST_V311.adf
+
+# Project internals — not for public repo
+documentation/
+gigatron.txt
+startup-sequence
+
+# Local / tooling
+__pycache__/
+*.pyc
+.DS_Store
+batocera-bios/
