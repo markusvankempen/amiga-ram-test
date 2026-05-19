@@ -12,7 +12,7 @@ Install
 
 Amiberry: **Configurations → RAM-TEST_DEMO_KS13 → Start**
 
-Kickstart: **kick13.rom** or **kick34005.A500.rom** (262144 bytes) in `~/Documents/Amiberry/ROMs/`
+Kickstart: Kickstart **1.3** (v34.005, 262144 bytes) in `~/Documents/Amiberry/ROMs/`
 
 Controls
 --------

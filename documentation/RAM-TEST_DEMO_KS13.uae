@@ -3,9 +3,8 @@
 ; Install: ./install_demo_amiberry.sh
 ; Start: Configurations → RAM-TEST_DEMO_KS13
 ; Controls: RETURN/ENTER = next screen, ESC = exit
-; ROM: kick13.rom or kick34005.A500.rom (262144 bytes)
-; Note: Kickstart ROMs are copyrighted. Use a ROM from your own hardware
-; or a licensed copy via Amiga Forever — https://www.amigaforever.com
+; ROM: Kickstart 1.3 (v34.005, 262144 bytes) — set kickstart_rom_file= below.
+; Kickstart ROMs are copyrighted — use a ROM from your own hardware.
 ;
 config_description=RAM-TEST UI demo - A500 OCS, screens only
 config_hardware=true
@@ -17,7 +16,8 @@ amiberry.hardfile_path=/Users/markusvankempen/Documents/Amiberry/HardDrives/
 amiberry.cd_path=/Users/markusvankempen/Documents/Amiberry/CDROMs/
 use_gui=yes
 use_debugger=false
-kickstart_rom_file=kick34005.A500.rom
+; Set this to the filename of your Kickstart 1.3 ROM in the ROMs/ folder:
+kickstart_rom_file=
 chipmem_size=1
 bogomem_size=0.5
 fastmem_size=0
