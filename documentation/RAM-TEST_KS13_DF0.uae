@@ -5,9 +5,8 @@
 ;   2. Copy ADF to:        ~/Documents/Amiberry/Floppies/
 ;        extracted_ramtest/RAM-TEST_emulator.adf
 ;   3. ROM must be Kickstart 1.3: kick34005.A500.rom (v34.005) in ROMs/
-;      *** LEGAL: Use only a ROM you own — dumped from your own Amiga hardware
-;      *** or purchased via Amiga Forever (https://www.amigaforever.com).
-;      *** Do NOT download ROMs from third-party sites. Not abandonware.
+;      Note: Kickstart ROMs are copyrighted. Use a ROM from your own hardware
+;      or a licensed copy via Amiga Forever — https://www.amigaforever.com
 ;   4. In Amiberry: Configurations → RAM-TEST_KS13_DF0 → Start
 ;
 ; Guru "80000004" / "-000004" at PC "0000A880" = illegal instruction.

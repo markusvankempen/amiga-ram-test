@@ -4,10 +4,7 @@
 **Amiberry version:** 8.1.6  
 **RAM-TEST version:** V3.11
 
-> ⚠️ **Legal notice:** Kickstart ROMs are copyrighted software owned by **Cloanto**.
-> You must use a ROM you own legally — dumped from your own Amiga hardware, or purchased
-> via **[Amiga Forever](https://www.amigaforever.com)** (the officially licensed ROM pack).
-> Do not download ROMs from third-party sites. They are not abandonware.
+> *Kickstart ROMs are copyrighted. Use a ROM from your own Amiga hardware or a licensed copy via [Amiga Forever](https://www.amigaforever.com).*
 
 # Kickstart ROM inventory (Amiberry)
 

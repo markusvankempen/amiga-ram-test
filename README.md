@@ -175,7 +175,7 @@ Or manually:
 
 1. Copy `documentation/RAM-TEST_KS13_DF0.uae` → `~/Documents/Amiberry/Configurations/`
 2. Copy `extracted_ramtest/RAM-TEST_emulator.adf` → `~/Documents/Amiberry/Floppies/`
-3. Use a legally obtained Kickstart **1.3** ROM (`kick34005.A500.rom`) in `~/Documents/Amiberry/ROMs/` — dump from your own Amiga, or buy [Amiga Forever](https://www.amigaforever.com). **Do not download ROMs from the internet.**
+3. Place a Kickstart **1.3** ROM in `~/Documents/Amiberry/ROMs/` *(must be from your own Amiga hardware or via [Amiga Forever](https://www.amigaforever.com))*
 4. Load the config, confirm **512 KB chip + 512 KB slow** RAM, boot, press menu **`1`**
 5. Guru help: `documentation/AMIBERRY-RAM-TEST.txt`
 
